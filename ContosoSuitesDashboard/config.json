@@ -1,0 +1,12 @@
+{
+    "AOAIEndpoint": "BLANK",
+    "AOAIKey": "BLANK",
+    "AOAIDeploymentName": "gpt-4",
+    "SearchEndpoint": "BLANK",
+    "SearchKey": "BLANK",
+    "SearchIndex": "contososuites-faq",
+    "SpeechKey": "BLANK",
+    "SpeechRegion": "eastus2",
+    "LanguageEndpoint": "TODO",
+    "LanguageKey": "TODO"
+}
