@@ -15,19 +15,31 @@ from azure.ai.textanalytics import (
         ExtractiveSummaryAction,
         AbstractiveSummaryAction
     )
-
+import os
+from azure.identity import DefaultAzureCredential
+from azure.keyvault.secrets import SecretClient
 st.set_page_config(layout="wide")
 
 with open('config.json') as f:
     config = json.load(f)
 
-aoai_endpoint = config['AOAIEndpoint']
-aoai_api_key = config['AOAIKey']
+
+# Set up the Key Vault client
+credential = DefaultAzureCredential()
+client = SecretClient(vault_url="https://akv-contoso-suites.vault.azure.net/", credential=credential)
+
+# Retrieve the API key from the Key Vault
+
+aoai_endpoint = client.get_secret("AOAIEndpoint").value
+aoai_api_key = client.get_secret("AOAIKey").value
+SearchEndpoint = client.get_secret("SearchEndpoint").value
+SearchKey = client.get_secret("SearchKey").value
+speech_key = client.get_secret("SpeechKey").value
+
 deployment_name = config['AOAIDeploymentName']
-speech_key = config['SpeechKey']
 speech_region = config['SpeechRegion']
 language_endpoint = config['LanguageEndpoint']
-language_key = config['LanguageKey']
+language_key = config['LanguageKey'] #TODO
 
 ### Exercise 05: Provide live audio transcription
 def create_transcription_request(audio_file, speech_key, speech_region, speech_recognition_language="en-US"):
